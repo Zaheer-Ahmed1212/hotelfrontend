@@ -13,7 +13,7 @@ import Footer from '../Components/Footer'
 function Home() {
   return (
     <div>
-        <Navbar/>
+        
         <Hero/>
         <Intro/>
         <SignatureStays/>

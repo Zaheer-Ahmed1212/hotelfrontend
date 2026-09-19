@@ -17,7 +17,7 @@ function FinalCTA() {
           </p>
 
           <Link
-            to="/stays"
+            to="/findstay"
             className="mt-9 inline-flex items-center rounded-full border-2 border-transparent bg-[#c9a86a] px-7 py-3.5 font-body text-sm font-medium text-[#FFFFFF] transition-all duration-300 hover:bg-transparent hover:border-[#c9a86a] hover:text-[#c9a86a]"
           >
             Find Your Stay

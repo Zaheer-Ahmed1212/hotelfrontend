@@ -33,7 +33,7 @@ const rooms = [
 
 function SignatureStays() {
   return (
-    <section className="relative z-10 bg-[#CBDEEF] px-5 py-24 sm:px-8 md:px-12 lg:py-32">
+    <section  className="relative z-10 bg-[#CBDEEF] px-5 py-24 sm:px-8 md:px-12 lg:py-32">
       <div className="mx-auto max-w-7xl">
         <div className="mb-14 max-w-4xl lg:mb-20">
           <div className="flex items-center gap-4">

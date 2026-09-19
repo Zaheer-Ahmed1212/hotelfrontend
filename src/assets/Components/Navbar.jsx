@@ -2,12 +2,19 @@ import React, { useState } from 'react'
 import { NavLink, Link } from 'react-router-dom'
 import { FiMenu, FiX } from 'react-icons/fi'
 
+
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
 
-  const linkClass =
-    'relative font-body text-sm text-[#0783B6] transition-colors duration-300 hover:text-[#39ABE7] after:absolute after:left-0 after:-bottom-1 after:h-[1px] after:w-0 after:bg-[#39ABE7] after:transition-all after:duration-300 hover:after:w-full'
-
+ const linkClass = ({ isActive }) =>
+  `relative font-body text-sm transition-colors duration-300
+  after:absolute after:left-0 after:-bottom-1 after:h-[1px]
+  after:bg-[#39ABE7] after:transition-all after:duration-300
+  ${
+    isActive
+      ? 'text-[#39ABE7] after:w-full'
+      : 'text-[#0783B6] after:w-0 hover:text-[#39ABE7] hover:after:w-full'
+  }`
   return (
     <header className="relative z-50 bg-[#FFFFFF] px-5 py-5 sm:px-8 sm:py-6 lg:px-10 lg:py-7">
       <div className="mx-auto max-w-7xl">
@@ -19,15 +26,18 @@ function Navbar() {
           </Link>
 
           <nav className="hidden items-center gap-6 lg:flex xl:gap-8">
-            <NavLink to="/stay" className={linkClass}>
+            <NavLink to="/" className={linkClass}>
+              Home
+            </NavLink>
+             <NavLink to="/stays" className={linkClass}>
               Stays
             </NavLink>
 
-            <NavLink to="/the-house" className={linkClass}>
+            <NavLink to="/house" className={linkClass}>
               The House
             </NavLink>
 
-            <NavLink to="/experience" className={linkClass}>
+            <NavLink to="/experiences" className={linkClass}>
               Experiences
             </NavLink>
 
@@ -38,12 +48,12 @@ function Navbar() {
 
           <div className="hidden lg:block">
             <Link
-              to="/stays"
+              to="/findstay"
               className="inline-block rounded-lg bg-[#39ABE7] px-5 py-2.5 font-body text-sm font-medium text-[#FFFFFF] transition-colors duration-300 hover:bg-[#0783B6] xl:px-6"
             >
               Find a Stay
             </Link>
-          </div>
+          </div> 
 
           <button
             onClick={() => setMenuOpen(!menuOpen)}
@@ -64,16 +74,24 @@ function Navbar() {
           }`}
         >
           <nav className="flex flex-col border-t border-[#CBDEEF] pt-5">
+                  <NavLink
+              to="/"
+              onClick={() => setMenuOpen(false)}
+              className="border-b border-[#CBDEEF] py-4 font-body text-sm text-[#0783B6] transition-colors duration-300 hover:text-[#39ABE7]"
+            >
+              Home
+            </NavLink>
             <NavLink
-              to="/stay"
+              to="/stays"
               onClick={() => setMenuOpen(false)}
               className="border-b border-[#CBDEEF] py-4 font-body text-sm text-[#0783B6] transition-colors duration-300 hover:text-[#39ABE7]"
             >
               Stays
             </NavLink>
+      
 
             <NavLink
-              to="/the-house"
+              to="/house"
               onClick={() => setMenuOpen(false)}
               className="border-b border-[#CBDEEF] py-4 font-body text-sm text-[#0783B6] transition-colors duration-300 hover:text-[#39ABE7]"
             >
@@ -81,7 +99,7 @@ function Navbar() {
             </NavLink>
 
             <NavLink
-              to="/experience"
+              to="/experiences"
               onClick={() => setMenuOpen(false)}
               className="border-b border-[#CBDEEF] py-4 font-body text-sm text-[#0783B6] transition-colors duration-300 hover:text-[#39ABE7]"
             >
@@ -97,7 +115,7 @@ function Navbar() {
             </NavLink>
 
             <Link
-              to="/stays"
+              to="/findstay"
               onClick={() => setMenuOpen(false)}
               className="mt-5 inline-block w-fit rounded-lg bg-[#39ABE7] px-6 py-3 font-body text-sm font-medium text-[#FFFFFF] transition-colors duration-300 hover:bg-[#0783B6]"
             >
