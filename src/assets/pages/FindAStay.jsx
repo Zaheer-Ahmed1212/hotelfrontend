@@ -1,5 +1,8 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+gsap.registerPlugin(ScrollTrigger)
 
 const rooms = [
   {
@@ -29,6 +32,10 @@ const rooms = [
 ]
 
 function FindAStay() {
+  const mainRef = useRef(null)
+  const heroRef = useRef(null)
+  const bookingRef = useRef(null)
+  const inspirationRef = useRef(null)
   const location = useLocation()
   const searchData = location.state || {}
 
@@ -53,18 +60,18 @@ function FindAStay() {
   const today = new Date().toISOString().split('T')[0]
 
   const nights = useMemo(() => {
-  if (!checkIn || !checkOut) {
-    return selectedRoom ? 1 : 0
-  }
+    if (!checkIn || !checkOut) {
+      return selectedRoom ? 1 : 0
+    }
 
-  const start = new Date(`${checkIn}T00:00:00`)
-  const end = new Date(`${checkOut}T00:00:00`)
-  const difference = end - start
+    const start = new Date(`${checkIn}T00:00:00`)
+    const end = new Date(`${checkOut}T00:00:00`)
+    const difference = end - start
 
-  return difference > 0
-    ? Math.ceil(difference / (1000 * 60 * 60 * 24))
-    : 0
-}, [checkIn, checkOut, selectedRoom])
+    return difference > 0
+      ? Math.ceil(difference / (1000 * 60 * 60 * 24))
+      : 0
+  }, [checkIn, checkOut, selectedRoom])
 
   const total = selectedRoom ? selectedRoom.price * nights : 0
 
@@ -75,6 +82,57 @@ function FindAStay() {
       setBooking(JSON.parse(savedBooking))
     }
   }, [])
+  useLayoutEffect(() => {
+  const ctx = gsap.context(() => {
+    const intro = gsap.timeline({
+      defaults: {
+        ease: 'power2.out'
+      }
+    })
+
+    intro.from(heroRef.current?.querySelector('p'), {
+      y: 20,
+      opacity: 0,
+      duration: 0.6
+    })
+
+    intro.from(
+      heroRef.current?.querySelector('h1'),
+      {
+        y: 35,
+        opacity: 0,
+        duration: 0.8
+      },
+      '-=0.4'
+    )
+
+    intro.from(
+      heroRef.current?.querySelector('div > p:last-child'),
+      {
+        y: 20,
+        opacity: 0,
+        duration: 0.6
+      },
+      '-=0.45'
+    )
+
+    gsap.utils.toArray('.gsap-reveal').forEach((element) => {
+      gsap.from(element, {
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: element,
+          start: 'top 85%',
+          once: true
+        }
+      })
+    })
+  }, mainRef)
+
+  return () => ctx.revert()
+}, [step])
 
   const handleSearch = () => {
     setError('')
@@ -193,7 +251,7 @@ function FindAStay() {
   if (booking && step === 4) {
     return (
       <main className="min-h-screen bg-[#FFFFFF] text-[#0783B6]">
-        <section className="bg-[#CBDEEF] px-5 py-24 sm:px-8 sm:py-32 lg:px-10 lg:py-40">
+        <section className="px-5 py-24 sm:px-8 sm:py-32 lg:px-10 lg:py-40">
           <div className="mx-auto max-w-4xl text-center">
             <p className="mb-6 font-body text-xs tracking-[0.3em] text-[#0783B6]">
               BOOKING CONFIRMED
@@ -322,8 +380,8 @@ function FindAStay() {
   }
 
   return (
-    <main className="bg-[#FFFFFF] text-[#0783B6]">
-      <section className="bg-[#CBDEEF] px-5 py-20 sm:px-8 sm:py-28 lg:px-10 lg:py-36">
+    <main ref={mainRef} className="bg-[#FFFFFF] text-[#0783B6]">
+      <section ref={heroRef} className="px-5 py-20 sm:px-8 sm:py-28 lg:px-10 lg:py-36">
         <div className="mx-auto max-w-7xl">
           <p className="mb-5 font-body text-xs tracking-[0.3em] text-[#0783B6]">
             FIND A STAY
@@ -331,7 +389,7 @@ function FindAStay() {
 
           <h1 className="max-w-4xl font-display text-5xl leading-[0.95] text-[#0783B6] sm:text-7xl lg:text-8xl">
             Your room is
-            <span className="block text-[#39ABE7]">waiting.</span>
+            <span className="block text-[#c9a86a]">waiting.</span>
           </h1>
 
           <p className="mt-7 max-w-2xl font-body text-base leading-7 text-[#0783B6] sm:text-lg">
@@ -341,26 +399,24 @@ function FindAStay() {
         </div>
       </section>
 
-      <section className="px-5 py-14 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
+      <section ref={bookingRef} className="gsap-reveal px-5 py-14 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
         <div className="mx-auto max-w-7xl">
           <div className="mb-10 flex items-center justify-center gap-3 sm:gap-5">
             {[1, 2, 3].map((number) => (
               <React.Fragment key={number}>
                 <div
-                  className={`flex h-9 w-9 items-center justify-center rounded-full font-body text-sm ${
-                    step >= number
+                  className={`flex h-9 w-9 items-center justify-center rounded-full font-body text-sm ${step >= number
                       ? 'bg-[#0783B6] text-[#FFFFFF]'
                       : 'border border-[#9BD4E5] text-[#0783B6]'
-                  }`}
+                    }`}
                 >
                   {number}
                 </div>
 
                 {number !== 3 && (
                   <div
-                    className={`h-px w-10 sm:w-20 ${
-                      step > number ? 'bg-[#0783B6]' : 'bg-[#9BD4E5]'
-                    }`}
+                    className={`h-px w-10 sm:w-20 ${step > number ? 'bg-[#0783B6]' : 'bg-[#9BD4E5]'
+                      }`}
                   />
                 )}
               </React.Fragment>
@@ -459,11 +515,10 @@ function FindAStay() {
                   return (
                     <article
                       key={room.id}
-                      className={`overflow-hidden border transition-all duration-300 ${
-                        selected
+                      className={`overflow-hidden border transition-all duration-300 ${selected
                           ? 'border-[#0783B6] ring-2 ring-[#0783B6]'
                           : 'border-[#9BD4E5]'
-                      }`}
+                        }`}
                     >
                       <div className="aspect-[4/3] overflow-hidden">
                         <img
@@ -497,19 +552,18 @@ function FindAStay() {
                           <button
                             disabled={unavailable}
                             onClick={() => selectRoom(room)}
-                            className={`rounded-lg px-4 py-2.5 font-body text-xs font-medium transition-colors duration-300 ${
-                              unavailable
+                            className={`rounded-lg px-4 py-2.5 font-body text-xs font-medium transition-colors duration-300 ${unavailable
                                 ? 'cursor-not-allowed bg-[#CBDEEF] text-[#0783B6]/50'
                                 : selected
-                                ? 'bg-[#0783B6] text-[#FFFFFF]'
-                                : 'bg-[#39ABE7] text-[#FFFFFF] hover:bg-[#0783B6]'
-                            }`}
+                                  ? 'bg-[#0783B6] text-[#FFFFFF]'
+                                  : 'bg-[#39ABE7] text-[#FFFFFF] hover:bg-[#0783B6]'
+                              }`}
                           >
                             {unavailable
                               ? 'Not Available'
                               : selected
-                              ? 'Selected'
-                              : 'Select Room'}
+                                ? 'Selected'
+                                : 'Select Room'}
                           </button>
                         </div>
                       </div>
@@ -672,7 +726,7 @@ function FindAStay() {
         </div>
       </section>
 
-      <section className="bg-[#0783B6] px-5 py-20 text-center sm:px-8 sm:py-28 lg:px-10 lg:py-32">
+      <section ref={inspirationRef} className="gsap-reveal bg-[#0783B6] px-5 py-20 text-center sm:px-8 sm:py-28 lg:px-10 lg:py-32">
         <div className="mx-auto max-w-3xl">
           <p className="font-body text-xs tracking-[0.3em] text-[#FFFFFF]">
             NEED SOME INSPIRATION?

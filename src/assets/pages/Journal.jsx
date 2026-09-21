@@ -164,7 +164,7 @@ return () => ctx.revert()
 
 return ( <main ref={pageRef} className="bg-[#FFFFFF] text-[#0783B6]"> <section className="px-5 pb-16 pt-24 sm:px-8 sm:pb-20 sm:pt-32 lg:px-10 lg:pb-24 lg:pt-40"> <div className="mx-auto max-w-7xl"> <div className="journal-hero-content max-w-4xl"> <p className="font-body text-xs tracking-[0.3em] text-[#0783B6]">
 THE JOURNAL </p> <h1 className="mt-6 font-display text-5xl leading-[0.95] text-[#0783B6] sm:text-7xl lg:text-8xl">
-Notes from <span className="block text-[#39ABE7]">Ardea House.</span> </h1> <p className="mt-8 max-w-2xl font-body text-base leading-8 text-[#0783B6] sm:text-lg sm:leading-9">
+Notes from <span className="block text-[#c9a86a]">Ardea House.</span> </h1> <p className="mt-8 max-w-2xl font-body text-base leading-8 text-[#0783B6] sm:text-lg sm:leading-9">
 Stories, places, food and quiet moments from around Ardea House. </p> </div>
 
       <div className="journal-categories mt-14 flex flex-wrap gap-3 border-t border-[#CBDEEF] pt-8">

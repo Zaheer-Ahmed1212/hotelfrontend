@@ -146,7 +146,7 @@ function TheHouse() {
             </p>
             <h1 className="font-display text-5xl leading-[0.95] text-[#0783B6] sm:text-7xl lg:text-8xl">
               A house made
-              <span className="block text-[#39ABE7]">for slower days.</span>
+              <span className="block text-[#c9a86a]">for slower days.</span>
             </h1>
             <p className="mt-8 max-w-2xl font-body text-base leading-7 text-[#0783B6] sm:text-lg">
               Ardea House is more than a place to stay. It is a private retreat
@@ -305,7 +305,7 @@ function TheHouse() {
           </p>
           <h2 className="font-display text-5xl leading-tight text-[#FFFFFF] sm:text-6xl lg:text-7xl">
             Your place to
-            <span className="block text-[#9BD4E5]">slow down.</span>
+            <span className="block text-[#c9a86a]">slow down.</span>
           </h2>
           <p className="mx-auto mt-7 max-w-2xl font-body text-base leading-7 text-[#FFFFFF] sm:text-lg">
             Discover the house, settle into your own rhythm, and make the stay

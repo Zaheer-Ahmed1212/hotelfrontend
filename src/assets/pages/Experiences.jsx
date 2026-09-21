@@ -1,3 +1,4 @@
+
 import React, { useLayoutEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { gsap } from 'gsap'
@@ -71,7 +72,6 @@ function Experiences() {
         stagger: 0.12
       })
 
-
       gsap.utils.toArray('.experience-section').forEach((section) => {
         const items = section.querySelectorAll('.reveal-item')
 
@@ -85,7 +85,7 @@ function Experiences() {
           stagger: 0.12,
           scrollTrigger: {
             trigger: section,
-            start: 'top 78%',
+            start: 'top 48%',
             once: true
           }
         })
@@ -110,7 +110,7 @@ function Experiences() {
         gsap.fromTo(
           image,
           {
-            scale: 1.08
+            scale: 0.8
           },
           {
             scale: 1,
@@ -153,12 +153,13 @@ function Experiences() {
 
       gsap.from('.special-day-image', {
         x: 50,
+        scale:0.5,
         opacity: 0,
         duration: 1,
         ease: 'power3.out',
         scrollTrigger: {
           trigger: '.special-day-section',
-          start: 'top 75%',
+          start: 'top 55%',
           once: true
         }
       })
@@ -191,25 +192,32 @@ function Experiences() {
     }, pageRef)
 
     return () => ctx.revert()
-
   }, [])
 
   return (
     <main ref={pageRef} className="bg-[#FFFFFF] text-[#0783B6]">
       <section className="bg-[#FFFFFF] px-5 py-24 sm:px-8 sm:py-32 lg:px-10 lg:py-40">
-        <div className="mx-auto max-w-7xl"> <div className="experiences-hero-content max-w-5xl">
-          <p className="mb-6 font-body text-xs tracking-[0.3em] text-[#0783B6]">
-            EXPERIENCES </p>
-          <h1 className="font-display text-5xl leading-[0.95] text-[#0783B6] sm:text-7xl lg:text-8xl">
-            Moments worth <span className="block text-[#39ABE7]">
-              leaving the room for. </span> </h1>
-          <p className="mt-8 max-w-2xl font-body text-base leading-7 text-[#0783B6] sm:text-lg">
-            At Ardea House, experiences are never about filling a schedule.
-            They are about discovering something good, slowing down enough
-            to notice it, and letting the day unfold naturally. </p> </div>
+        <div className="mx-auto max-w-7xl">
+          <div className="experiences-hero-content max-w-5xl">
+            <p className="mb-6 font-body text-xs tracking-[0.3em] text-[#0783B6]">
+              EXPERIENCES
+            </p>
+
+            <h1 className="font-display text-5xl leading-[0.95] text-[#0783B6] sm:text-7xl lg:text-8xl">
+              Moments worth
+              <span className="block text-[#c9a86a]">
+                leaving the room for.
+              </span>
+            </h1>
+
+            <p className="mt-8 max-w-2xl font-body text-base leading-7 text-[#0783B6] sm:text-lg">
+              At Ardea House, experiences are never about filling a schedule.
+              They are about discovering something good, slowing down enough
+              to notice it, and letting the day unfold naturally.
+            </p>
+          </div>
         </div>
       </section>
-
 
       <section className="experience-section px-5 py-20 sm:px-8 sm:py-28 lg:px-10 lg:py-36">
         <div className="mx-auto max-w-7xl">
@@ -218,9 +226,12 @@ function Experiences() {
               <p className="font-body text-xs tracking-[0.3em] text-[#0783B6]">
                 THE ARDEA WAY
               </p>
+
               <h2 className="mt-5 font-display text-4xl leading-tight text-[#0783B6] sm:text-5xl">
                 Do less.
-                <span className="block text-[#39ABE7]">Experience more.</span>
+                <span className="block text-[#39ABE7]">
+                  Experience more.
+                </span>
               </h2>
             </div>
 
@@ -240,6 +251,7 @@ function Experiences() {
             <p className="mb-5 font-body text-xs tracking-[0.3em] text-[#0783B6]">
               DISCOVER
             </p>
+
             <h2 className="font-display text-4xl leading-tight text-[#0783B6] sm:text-5xl lg:text-6xl">
               Your day,
               <span className="block">your way.</span>
@@ -250,14 +262,17 @@ function Experiences() {
             {experiences.map((experience, index) => (
               <article
                 key={experience.title}
-                className={`experience - card grid items - center gap - 8 lg: grid - cols - 2 lg: gap - 20 ${index % 2 !== 0 ? 'lg:[&>div:first-child]:order-2' : ''
-                  } `}
+                className={`experience-card grid items-center gap-8 lg:grid-cols-2 lg:gap-20 ${
+                  index % 2 !== 0
+                    ? 'lg:[&>div:first-child]:order-2'
+                    : ''
+                }`}
               >
                 <div className="overflow-hidden">
                   <img
                     src={experience.image}
                     alt={experience.title}
-                    className="experience-image aspect-[4/3] h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+                    className="experience-image aspect-[4/3] h-full w-full object-cover hover:scale-105"
                   />
                 </div>
 
@@ -266,7 +281,9 @@ function Experiences() {
                     <span className="font-body text-xs tracking-[0.2em] text-[#0783B6]">
                       {experience.number}
                     </span>
+
                     <span className="h-px w-10 bg-[#0783B6]" />
+
                     <span className="font-body text-xs uppercase tracking-[0.2em] text-[#0783B6]">
                       {experience.category}
                     </span>
@@ -299,18 +316,23 @@ function Experiences() {
             <p className="mb-5 font-body text-xs tracking-[0.3em] text-[#0783B6]">
               ONE SPECIAL DAY
             </p>
+
             <h2 className="font-display text-4xl leading-tight text-[#0783B6] sm:text-5xl lg:text-6xl">
               Start with
-              <span className="block text-[#39ABE7]">nothing planned.</span>
+              <span className="block text-[#c9a86a]">
+                nothing planned.
+              </span>
             </h2>
+
             <p className="mt-7 max-w-xl font-body text-base leading-8 text-[#0783B6] sm:text-lg">
               Wake when you want. Have breakfast outside. Take the long way
               into town. Come home for dinner. The best Ardea experiences are
               often the ones that were never on the itinerary.
             </p>
+
             <Link
               to="/stays"
-              className="mt-8 inline-block rounded-lg bg-[#39ABE7] px-7 py-3.5 font-body text-sm font-medium text-[#FFFFFF] transition-colors duration-300 hover:bg-[#0783B6]"
+              className="mt-8 inline-block rounded-lg bg-[#c9a86a] px-7 py-3.5 font-body text-sm font-medium text-[#FFFFFF] transition-colors duration-300 hover:bg-[#dfb361]"
             >
               Plan Your Stay
             </Link>
@@ -332,9 +354,12 @@ function Experiences() {
             <p className="mb-5 font-body text-xs tracking-[0.3em] text-[#0783B6]">
               GUEST NOTES
             </p>
+
             <h2 className="font-display text-4xl leading-tight text-[#0783B6] sm:text-5xl lg:text-6xl">
               The moments they
-              <span className="block text-[#39ABE7]">remembered.</span>
+              <span className="block text-[#39ABE7]">
+                remembered.
+              </span>
             </h2>
           </div>
 
@@ -352,6 +377,7 @@ function Experiences() {
                   <p className="font-body text-sm font-medium text-[#0783B6]">
                     {testimonial.name}
                   </p>
+
                   <p className="mt-1 font-body text-xs text-[#0783B6]">
                     {testimonial.detail}
                   </p>
@@ -367,16 +393,19 @@ function Experiences() {
           <p className="mb-6 font-body text-xs tracking-[0.3em] text-[#FFFFFF]">
             MAKE IT YOURS
           </p>
+
           <h2 className="font-display text-5xl leading-tight text-[#FFFFFF] sm:text-6xl lg:text-7xl">
             Come for the house.
             <span className="block text-[#9BD4E5]">
               Stay for everything else.
             </span>
           </h2>
+
           <p className="mx-auto mt-7 max-w-2xl font-body text-base leading-7 text-[#FFFFFF] sm:text-lg">
             Find your room, choose your pace, and let the rest of the stay
             happen naturally.
           </p>
+
           <Link
             to="/stays"
             className="mt-9 inline-block rounded-lg bg-[#39ABE7] px-7 py-3.5 font-body text-sm font-medium text-[#FFFFFF] transition-colors duration-300 hover:bg-[#FFFFFF] hover:text-[#0783B6]"
@@ -386,11 +415,8 @@ function Experiences() {
         </div>
       </section>
     </main>
-
-
   )
 }
 
 export default Experiences
-
 
